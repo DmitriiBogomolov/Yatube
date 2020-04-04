@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0KHQsdGA0L7RgSDQv9Cw0YDQvtC70Y8g0L3QsCBsb2NhbGhvc3Q6ODAwMA==?=
+From: webmaster@localhost
+To: foreo1997@gmail.com
+Date: Fri, 03 Apr 2020 10:15:36 -0000
+Message-ID: <158590893644.9108.12498767199421179613@DESKTOP-CHNVOB6>
+
+
+Вы получили это письмо, потому что вы (или кто-то другой) запросили восстановление пароля от учётной записи на сайте localhost:8000, которая связана с этим адресом электронной почты.
+
+Пожалуйста, перейдите на эту страницу и введите новый пароль:
+
+http://localhost:8000/authreset/NA/5fc-09c75a668a0a94c89964/
+
+Ваше имя пользователя (на случай, если вы его забыли): margonash1
+
+Спасибо, что используете наш сайт!
+
+Команда сайта localhost:8000
+
+
+
+-------------------------------------------------------------------------------
