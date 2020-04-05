@@ -19,16 +19,16 @@ def group_posts(request, slug):
 @login_required
 def new_post(request):
     date = dt.datetime.today()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PostForm(request.POST)
 
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect(reverse('index'))
+            return redirect(reverse("index"))
 
-        return render(request, 'new_post.html', {'form': form, 'date': date})
+        return render(request, "new_post.html", {"form": form, "date": date})
 
     form = PostForm()
-    return render(request, 'new_post.html', {'form': form, 'date': date})
+    return render(request, "new_post.html", {"form": form, "date": date})
