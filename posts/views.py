@@ -18,7 +18,6 @@ def group_posts(request, slug):
 
 @login_required
 def new_post(request):
-    date = dt.datetime.today()
     if request.method == "POST":
         form = PostForm(request.POST)
 
@@ -28,7 +27,7 @@ def new_post(request):
             post.save()
             return redirect(reverse("index"))
 
-        return render(request, "new_post.html", {"form": form, "date": date})
+        return render(request, "new_post.html", {"form": form})
 
     form = PostForm()
-    return render(request, "new_post.html", {"form": form, "date": date})
+    return render(request, "new_post.html", {"form": form})
