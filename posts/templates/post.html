@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main role="main" class="container">
+    <div class="row">
+        {% include "profile_card.html" with profile_info=profile_info %}
+
+        <div class="col-md-9">
+
+            <div class="card mb-3 mt-1 shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">
+                        <a href="/{{ profile_info.user.username }}/">
+                            <strong class="d-block text-gray-dark">
+                                @{{ profile_info.user.username }}
+                            </strong>
+                        </a>
+                        {{post.text}} 
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            {% if user.username == profile_info.user.username %}
+                                <a class="btn btn-sm text-muted" 
+                                   href="/{{ profile_info.user.username }}/{{ post_id }}/edit?next={{ request.path }}" 
+                                   role="button">Редактировать
+                                </a>
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">{{ post.pub_date }}</small>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</main>
+
+
+{% endblock %}

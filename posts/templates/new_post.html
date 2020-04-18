@@ -6,22 +6,41 @@
 <div class="row justify-content-center">
     <div class="col-md-8 p-5">
         <div class="card">
-            <div class="card-header">Новая запись</div>
+            <div class="card-header">
+                {% if mode == "add" %}
+                    Добавить запись
+                {% elif mode == "edit" %}
+                    Редактировать запись
+                {% endif %} 
+
+            </div>
             <div class="card-body">
 
                 {% if form.errors %}
                     {% for error in form.errors %}
                         <div class="alert alert-danger" role="alert">
-                            {{ error|escape }}
+                            {{ error | escape }}
                         </div>
                     {% endfor %}
                 {% endif %}
-                
-                <form method="post" action="{% url 'new_post' %}">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group row" 
-                             aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %}>
+
+                <!-- Form depends of condext field "mode" -->
+                <!-- Form head tag -->
+                {% if mode == "add" %}
+                    <form method="post" action="{% url 'new_post' %}">
+                {% elif mode == "edit" %}
+                    <form method="post" 
+                          action="{% url 'post_edit' username=request.user.username post_id=post_id %}{{ next_param }}">
+                {% endif %}
+                        <!-- Form body -->
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group row" 
+                                 aria-required={% if field.field.required %}
+                                                    "true"
+                                                {% else %}
+                                                    "false"
+                                                {% endif %}>
                                 <label for="{{ field.id_for_label }}" 
                                        class="col-md-4 col-form-label text-md-right">
                                             {{ field.label }}
@@ -34,23 +53,35 @@
                                     {{ field|addclass:"form-control" }}
 
                                     {% if field.help_text %}
-                                    <small id="{{ field.id_for_label }}-help" 
-                                           class="form-text text-muted">
-                                                {{ field.help_text|safe }}
-                                    </small>
+                                        <small id="{{ field.id_for_label }}-help" 
+                                               class="form-text text-muted">
+                                                    {{ field.help_text | safe }}
+                                        </small>
                                     {% endif %}
                                 </div>                
-                        </div>
-                    {% endfor %}
+                            </div>
+                        {% endfor %}
+                        
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-5">
 
-                    <div class="col-md-6 offset-md-4">              
+                            <a href="javascript:history.back()" class="btn btn-primary">Назад</a>
+                
+                            <!-- Buttons depends of condext field "mode" -->
                             <button type="submit" class="btn btn-primary">
-                                Добавить запись
+                                {% if mode == "add" %}
+                                    Добавить
+                                {% elif mode == "edit" %}
+                                    Сохранить
+                                {% endif %}                 
                             </button>
-                    </div>
-                </form>
-            </div> <!-- card body -->
-        </div> <!-- card -->
+                        </div> <!-- Buttons div-->
+                    
+                    </form> <!-- Form -->   
+
+   
+            </div> <!-- card body -->      
+        </div> <!-- card -->      
     </div> <!-- col -->
 </div> <!-- row -->
 
