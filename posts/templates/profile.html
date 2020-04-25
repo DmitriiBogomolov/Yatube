@@ -2,21 +2,21 @@
 {% block content %}
 <main role="main" class="container">
         <div class="row">
-            {% include "profile_card.html" with profile_info=profile_info %}
+            {% include "profile_card.html" with profile=profile post_count=post_count %}
     
             <div class="col-md-9">                
 
                 <!-- Начало блока с постом --> 
-                {% for post in page %}
+                {% for post in page.object_list %}
                     <div class="card mb-3 mt-1 shadow-sm">
                             <div class="card-body">
                                     <p class="card-text">
                                         <!-- Ссылка на страницу автора в атрибуте href; 
                                              username автора в тексте ссылки
                                         -->
-                                        <a href="/{{ profile_info.user.username }}/">
+                                        <a href="{% url 'profile' username=profile.username %}">
                                             <strong class="d-block text-gray-dark">
-                                                @{{ profile_info.user.username }}
+                                                @{{ profile.username }}
                                             </strong>
                                         </a>
                                         <!-- Текст поста -->
@@ -26,13 +26,13 @@
                                         <div class="btn-group">
                                             <!-- Ссылка на страницу записи в атрибуте href-->
                                             <a class="btn btn-sm text-muted" 
-                                               href="/{{ profile_info.user.username }}/{{ page.start_index | add:forloop.counter0 }}/"
+                                               href="{% url 'post' username=profile.username post_id=post.id %}"
                                                role="button">Добавить комментарий
                                             </a>
                                             <!-- Ссылка на редактирование, показывается только автору записи -->
-                                            {% if user.username == profile_info.user.username %}
+                                            {% if user.username == profile.username %}
                                                 <a class="btn btn-sm text-muted"
-                                                   href="/{{ profile_info.user.username }}/{{ page.start_index | add:forloop.counter0 }}/edit?next={{ request.path }}"
+                                                   href="{% url 'post_edit' username=profile.username post_id=post.id %}?next={{ request.path }}"
                                                    role="button">Редактировать
                                                 </a>
                                             {% endif %}

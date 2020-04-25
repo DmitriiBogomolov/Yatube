@@ -27,10 +27,10 @@
                 <!-- Form depends of condext field "mode" -->
                 <!-- Form head tag -->
                 {% if mode == "add" %}
-                    <form method="post" action="{% url 'new_post' %}">
+                    <form method="post" action="{% url "new_post" %}">
                 {% elif mode == "edit" %}
                     <form method="post" 
-                          action="{% url 'post_edit' username=request.user.username post_id=post_id %}{{ next_param }}">
+                          action="{% url "post_edit" username=request.user.username post_id=post.id %}{{ next_param }}">
                 {% endif %}
                         <!-- Form body -->
                         {% csrf_token %}

@@ -33,6 +33,7 @@ def group_posts(request, slug):
 @login_required
 def new_post(request):
 
+    # Form a next page param string
     next_url = request.GET.get("next")
 
     next_param = ""
@@ -67,45 +68,49 @@ def profile(request, username):
     post_list = Post.objects.filter(author=user).order_by("-pub_date")
     post_count = len(post_list)
 
-    profile_info = {"user": user, "post_count": post_count}
-
     paginator = Paginator(post_list, 10)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
 
     return render(
-        request, "profile.html",
-        {"page": page, "paginator": paginator, "profile_info": profile_info}
+            request, "profile.html",
+            {
+                "page": page,
+                "paginator": paginator,
+                "post_count": post_count,
+                "profile": user
+            }
         )
 
 
 def post_view(request, username, post_id):
     user = get_object_or_404(User, username=username)
-    post_list = Post.objects.filter(author=user).order_by("-pub_date")
-    post_count = post_list.count()
-
+    
     try:
-        post = post_list[post_id-1]
+        post = Post.objects.get(pk=post_id)
     except IndexError:
         return HttpResponse(status=404)
+    post_count = Post.objects.count()
 
-    profile_info = {"user": user, "post_count": post_count}
     return render(
             request, "post.html",
-            {"profile_info": profile_info, "post": post, "post_id": post_id}
+            {"post": post, "profile": user, "post_count": post_count}
         )
 
 
 @login_required
 def post_edit(request, username, post_id):
-
     user = get_object_or_404(User, username=username)
-
+    
     if request.user != user:
-        return HttpResponse(status=403)
+        return redirect(
+            reverse("post",
+                    kwargs={'username': username, 'post_id': post_id}
+                    )
+                )
 
     try:
-        post = Post.objects.filter(author=user).order_by("-pub_date")[post_id-1]
+        post = Post.objects.get(id=post_id)
     except IndexError:
         return HttpResponse(status=404)
 
@@ -123,13 +128,13 @@ def post_edit(request, username, post_id):
             form.save()
             if next_url:
                 return redirect(next_url)
-            return redirect("/"+username)
+            return redirect(reverse("post", kwargs={'username': username, 'post_id': post_id}))
 
         context = {
             "form": form,
             "mode": "edit",
-            "post_id": post_id,
-            "next_param": next_param
+            "next_param": next_param,
+            "post": post
         }
         return render(request, "new_post.html", context)
 
@@ -138,7 +143,7 @@ def post_edit(request, username, post_id):
     context = {
         "form": form,
         "mode": "edit",
-        "post_id": post_id,
-        "next_param": next_param
+        "next_param": next_param,
+        "post": post
     }
     return render(request, "new_post.html", context)
