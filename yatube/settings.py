@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django.contrib.sites",
     "django.contrib.flatpages",
+    'sorl.thumbnail'
 ]
 
 MIDDLEWARE = [
@@ -128,9 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Login
 LOGIN_URL = "/auth/login/"
@@ -146,3 +148,18 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 # Идентификатор текущего сайта
 SITE_ID = 1
+
+# Кеш
+CACHES = {
+        'default': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+}
+
+CACHE_RATES = {
+    "INDEX": 20
+}
+
+if DEBUG:
+    for rate in CACHE_RATES:
+        CACHE_RATES[rate] = 0

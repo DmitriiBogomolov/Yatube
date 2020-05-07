@@ -3,37 +3,15 @@
 
 <main role="main" class="container">
     <div class="row">
-        {% include "profile_card.html" with profile_context=profile_context %}
+        {% include "profile_card.html" %}
 
         <div class="col-md-9">
-
-            <div class="card mb-3 mt-1 shadow-sm">
-                <div class="card-body">
-                    <p class="card-text">
-                        <a href="{% url "profile" username=profile.username %}">
-                            <strong class="d-block text-gray-dark">
-                                @{{ profile.username }}
-                            </strong>
-                        </a>
-                        {{post.text}} 
-                    </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            {% if user.username == profile.username %}
-                                <a class="btn btn-sm text-muted" 
-                                   href="{% url 'post_edit' username=profile.username post_id=post.id %}?next={{ request.path }}"
-                                   role="button">Редактировать
-                                </a>
-                            {% endif %}
-                        </div>
-                        <small class="text-muted">{{ post.pub_date }}</small>
-                    </div>
-                </div>
-            </div>
-            
+            {% include "post_item.html" with post=post no_comments_href=True%}
+            {% include "comments.html" with comments=comments comment_form=comment_form %}
         </div>
-
+        
     </div>
+
 </main>
 
 

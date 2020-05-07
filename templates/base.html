@@ -9,6 +9,13 @@
         <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
         <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
         <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <link  href="{% static 'cropper/dist/cropper.css' %}" rel="stylesheet">
+        <script src="{% static 'cropper/dist/cropper.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/post.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab&display=swap" rel="stylesheet">
+        
+        
     </head>
     <body>
         {% include 'nav.html' %}
@@ -21,5 +28,7 @@
         </main>
         {% include 'footer.html' %}
 
+
+        <script src="{% static 'js/crop.js' %}"></script>
 </body>
 </html>

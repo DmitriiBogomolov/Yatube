@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Последние обновления на сайте{% endblock %}
+{% block title %}Избранные авторы{% endblock %}
 {% block content %}
-    {% include "menu.html" with index=True %}
+    {% include "menu.html" with follow=True %}
+    
     {% if page %}
-        <h1>Последние обновления на сайте</h1>
+        <h1>Избранные авторы</h1>     
     {% else %}
         {% load static %}
         <div class="message-info">
@@ -11,14 +12,10 @@
             <h1 class="header_minor">Здесь ничего нет</h1>
         </div>
     {% endif %}
-    
-    {% load cache %}
-    {% cache 20 index_page %}
-        {% for post in page %}
-            {% include "post_item.html" with post=post %}
-        {% endfor %}
-    {% endcache %}
 
+    {% for post in page %}
+        {% include "post_item.html" with post=post %}
+    {% endfor %}
     {% if page.has_other_pages %}
         {% include "paginator.html" with items=page paginator=paginator%}
     {% endif %}

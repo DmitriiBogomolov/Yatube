@@ -1,0 +1,47 @@
+<div class="post-wrapper">
+    <div class="post-author">
+        <a href="{% url 'profile' username=post.author.username %}">
+            <strong>
+                @{{ post.author.username }}
+            </strong>
+        </a>
+    </div>
+    <div class="card mb-3 mt-1 shadow-sm">
+            {% load thumbnail %}
+            {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+                <img class="card-img" src="{{ im.url }}">
+            {% endthumbnail %}
+            <div class="card-body">
+                    <p class="card-text">
+                        <!-- Ссылка на страницу автора в атрибуте href; 
+                                username автора в тексте ссылки
+                        -->
+                        
+                        <!-- Текст поста -->
+                        {{ post.text | linebreaksbr }}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <!-- Ссылка на страницу записи в атрибуте href-->
+                            {% if not no_comments_href %}
+                                <a class="btn btn-sm text-muted" 
+                                    href="{% url 'post' username=post.author.username post_id=post.id %}"
+                                    role="button">Комментарии
+                                </a>
+                            {% endif %}
+                            <!-- Ссылка на редактирование, показывается только автору записи -->
+                            {% if user.username == post.author.username %}
+                                <a class="btn btn-sm text-muted"
+                                    href="{% url 'post_edit' username=post.author.username post_id=post.id %}?next={{ request.path }}"
+                                    role="button">Редактировать
+                                </a>
+                            {% endif %}
+                        </div>
+                        <!-- Дата публикации  -->
+                        <!--<small class="text-muted">31 июля 1854 г. 0:00</small>-->
+                        <small class="text-muted">{{ post.pub_date }}</small>
+                        
+                    </div>
+            </div>
+    </div>
+</div>

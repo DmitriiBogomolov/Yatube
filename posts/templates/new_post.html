@@ -27,10 +27,15 @@
                 <!-- Form depends of condext field "mode" -->
                 <!-- Form head tag -->
                 {% if mode == "add" %}
-                    <form method="post" action="{% url "new_post" %}">
-                {% elif mode == "edit" %}
                     <form method="post" 
-                          action="{% url "post_edit" username=request.user.username post_id=post.id %}{{ next_param }}">
+                          enctype="multipart/form-data" 
+                          action="{% url "new_post" %}"
+                    >
+                {% elif mode == "edit" %}
+                    <form method="post"
+                          action="{% url "post_edit" username=request.user.username post_id=post.id %}{{ next_param }}"
+                          enctype="multipart/form-data"
+                    >
                 {% endif %}
                         <!-- Form body -->
                         {% csrf_token %}
@@ -42,13 +47,13 @@
                                                     "false"
                                                 {% endif %}>
                                 <label for="{{ field.id_for_label }}" 
-                                       class="col-md-4 col-form-label text-md-right">
+                                       class="col-md-3 col-form-label text-md-right">
                                             {{ field.label }}
                                             {% if field.field.required %}
                                                 <span class="required">*</span>
                                             {% endif %}
                                 </label>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
 
                                     {{ field|addclass:"form-control" }}
 
@@ -84,5 +89,29 @@
         </div> <!-- card -->      
     </div> <!-- col -->
 </div> <!-- row -->
+
+
+
+<div class="modal fade modal-crop" id="modal-crop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" id="crop-wrapper" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Обрезать изображение</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div style="min-height: 400px">
+                <img class="image-preview" id="image-preview">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Ок</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
