@@ -9,6 +9,27 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from io import BytesIO
 from zipfile import ZipFile
 
+import os, glob
+from django.conf import settings
+
+
+# clear uploaded files in previous tests
+def _set_up():
+    files = glob.glob(
+        os.path.join(settings.MEDIA_ROOT+"\\posts\\"+"test_image*")
+    )
+    for filename in files:
+        os.remove(filename)
+
+    files = glob.glob(
+        os.path.join(settings.MEDIA_ROOT+"\\posts\\"+"another_test_image*")
+    )
+    for filename in files:
+        os.remove(filename)
+
+
+_set_up()
+
 
 class TestImages(TestCase):
     def setUp(self):
@@ -57,6 +78,7 @@ class TestImages(TestCase):
                             "application/zip",
                             None, None
                         )
+
 
     def test_post_image_display(self):
         response = self.client.get(

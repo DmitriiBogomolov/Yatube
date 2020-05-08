@@ -1,0 +1,23 @@
+.post-wrapper {
+    margin-bottom: 30px;
+}
+
+.post-author{
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    font-size: 0.9em;
+}
+
+.comment-date {
+    color: #515151;
+    margin-left: 10px;
+    font-size: 0.85em;
+}
+
+.comment-wrapper {
+    padding-top: 10px;
+    border-top: 1px solid #e1e1e1;
+}
+
