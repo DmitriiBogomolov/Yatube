@@ -24,9 +24,9 @@
 
 ## Приложение
 
-![1](https://github.com/DmitriiBogomolov/product_helper/blob/master/static/refs/1.png)
-![2](https://github.com/DmitriiBogomolov/product_helper/blob/master/static/refs/2.png)
-![3](https://github.com/DmitriiBogomolov/product_helper/blob/master/static/refs/3.png)
+![1](https://github.com/DmitriiBogomolov/yatube/blob/master/static/refs/1.png)
+![2](https://github.com/DmitriiBogomolov/yatube/blob/master/static/refs/2.png)
+![3](https://github.com/DmitriiBogomolov/yatube/blob/master/static/refs/3.png)
 
 ## Лицензия
 [MIT](https://choosealicense.com/licenses/mit/)
