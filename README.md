@@ -1,14 +1,32 @@
 # Коллективный блог
 
-Приложение, где пользователи могут:
-- создавать и заполнять профили;
-- подписываться друг на друга;
-- публиковать и комментировать посты;
-- получать доступ к функциональности приложения в зависимости от установленных прав доступа.
+Функционал приложения:
+- профили пользователей;
+- система подписок;
+- система постов и комментариев;
+- разграничение прав доступа.
 
 ## Установка
 
-Склонировать репозиторий, установить зависимости в виртуальное окружение, выполнить миграции.
+1. Собрать приложение
+
+        docker build -t yatube .
+
+2. Запустить
+
+        docker run -p 8000:8000 --name yatube_app yatube
+
+3. Остановка:
+
+        docker stop yatube_app
+
+4. Сервис будет доступен по адресу http://localhost:8000
+
+## Приложение
+
+![1](https://github.com/DmitriiBogomolov/product_helper/blob/master/static/refs/1.png)
+![2](https://github.com/DmitriiBogomolov/product_helper/blob/master/static/refs/2.png)
+![3](https://github.com/DmitriiBogomolov/product_helper/blob/master/static/refs/3.png)
 
 ## Лицензия
 [MIT](https://choosealicense.com/licenses/mit/)
